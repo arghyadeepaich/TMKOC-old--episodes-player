@@ -8,13 +8,16 @@ with open('episode_links.txt', 'r') as f:
     episode_links = [link.strip() for link in episode_links]
 
 # Function to embed a random episode
-def embed_random_episode():
-    episode_number = random.randint(0, len(episode_links) - 1)
-    episode_url = episode_links[episode_number]
-    
-    # Extract the video ID from the YouTube URL
-    video_id = episode_url.split('v=')[-1]
-    embed_url = f"https://www.youtube.com/embed/{video_id}"
+def get_video_id(url):
+    """Extracts video ID from both youtube.com and youtu.be URLs"""
+    if "v=" in url:
+        return url.split("v=")[1].split("&")[0] # Handles extra params like &t=
+    elif "youtu.be/" in url:
+        return url.split("youtu.be/")[1].split("?")[0] # Handles ?si= params
+    return None
+
+# Update your embed function:
+video_id = get_video_id(episode_url)
     
     # Responsive embedding with a fallback link
     
@@ -64,3 +67,4 @@ st.write("Developed by Arghyadeep Aich")
 
 if st.button("Play a Random Episode"):
     embed_random_episode()
+
