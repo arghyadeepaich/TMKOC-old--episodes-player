@@ -21,7 +21,7 @@ video_id = get_video_id(episode_url)
     
     # Responsive embedding with a fallback link
     
-    st.components.v1.html(f"""
+st.components.v1.html(f"""
         <style>
             .responsive-iframe {{
                 position: relative;
@@ -67,4 +67,5 @@ st.write("Developed by Arghyadeep Aich")
 
 if st.button("Play a Random Episode"):
     embed_random_episode()
+
 
